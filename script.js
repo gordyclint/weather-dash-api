@@ -55,9 +55,8 @@ function weatherInfo(selector, cityName) {
 
                 var index = index.value;
                 var pFour = $("<p>").text("UV Index: " + index);
-                var heading = $("<h2>").text("5-Day Forecast:")
-                pFour.addClass("position-relative");
-                $("#weather-info").append(pFour, heading);
+                pFour.addClass("uv-index");
+                $("#weather-info").append(pFour);
             })
 
             forecast(lat, long);
@@ -70,22 +69,28 @@ function weatherInfo(selector, cityName) {
 // Five day forecast function
 function forecast(lat, long) {
 
+    $("#forecast-div").empty();
+    $(".forecast-head").empty();
+
+    // Heading
+    var heading = $("<h2>").text("5-Day Forecast");
+    $(".forecast-head").append(heading);
+
     var queryURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + long + "&APPID=292e2030aa02770ca57caacfbf6ed982";
+
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function (cast) {
         console.log(cast);
-        var timeNow = moment().format("LL");
 
         for (let i = 0; i < 5; i++) {
 
             // Add 5-Day forecast div
-            var fiveFore = $("<div class='badge badge-primary'>");
-            fiveFore.addClass("d-flex flex-column justify-content-around h-25 w-25");
+            var fiveFore = $("<div class='forecasts'>");
 
             //Time
-            // var allTime = $("<h6>").text(timeNow); Fix this code
+            var allTime = $("<h6>").text(cast.list[i].dt_txt);
             fiveFore.append(allTime);
 
             // Temp
@@ -99,7 +104,9 @@ function forecast(lat, long) {
             var allHum = $("<p>").text("Humidity: " + humidity + "%");
             fiveFore.append(allHum);
 
-            $("#weather-info").append(fiveFore);
+
+
+            $("#forecast-div").append(fiveFore);
 
         }
 
