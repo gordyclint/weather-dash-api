@@ -32,3 +32,8 @@
     text-align: center;
     padding: 20px;
 }
+
+#city-list {
+    margin: auto;
+    width: 300px;
+}
