@@ -1,3 +1,39 @@
-#forecast {
-    z-index: 1 !important;
+.forecasts {
+    width: 200px;
+    height: 150px;
+    background-color: blue;
+    color: white;
+    border: 1px solid white;
+    border-radius: 25px;
+    text-align: center;
+    padding: 20px;
+}
+
+#forecast-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+#weather-info {
+    position: relative;
+    height: auto;
+    padding: 20px;
+}
+
+.uv-index {
+    width: 200px;
+    height: 25px;
+    background-color: red;
+    color: white;
+}
+
+.forecast-head {
+    position: relative;
+    text-align: center;
+    padding: 20px;
+}
+
+#city-list {
+    margin: auto;
+    width: 300px;
 }
