@@ -3,14 +3,13 @@
 
 var cityList = ["Austin", "Chicago", "New York", "Orlando", "San Francisco", "Seattle", "Denver", "Atlanta"];
 
-
 // weatherInfo  function re-renders the HTML to display the appropriate content
 function weatherInfo(selector, cityName) {
     $("#weather-info").empty();
 
     var timeNow = moment().format("LL");
 
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&APPID=292e2030aa02770ca57caacfbf6ed982";
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&APPID=292e2030aa02770ca57caacfbf6ed982";
 
     // Creating an AJAX call for the specific movie button being clicked
     $.ajax({
@@ -46,7 +45,7 @@ function weatherInfo(selector, cityName) {
 
             var lat = response.coord.lat;
             var long = response.coord.lon;
-            var queryTwo = "http://api.openweathermap.org/data/2.5/uvi?appid=292e2030aa02770ca57caacfbf6ed982&lat=" + lat + "&lon=" + long;
+            var queryTwo = "https://api.openweathermap.org/data/2.5/uvi?appid=292e2030aa02770ca57caacfbf6ed982&lat=" + lat + "&lon=" + long;
 
             $.ajax({
                 url: queryTwo,
@@ -67,25 +66,28 @@ function weatherInfo(selector, cityName) {
 
 }
 
+
 // Five day forecast function
 function forecast(lat, long) {
 
-    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + long + "&APPID=292e2030aa02770ca57caacfbf6ed982";
+    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + long + "&APPID=292e2030aa02770ca57caacfbf6ed982";
+    
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function (cast) {
         console.log(cast);
-        var timeNow = moment().format("LL");
 
         for (let i = 0; i < 5; i++) {
+            var timeNow = moment().format("ll");
 
             // Add 5-Day forecast div
             var fiveFore = $("<div class='badge badge-primary'>");
             fiveFore.addClass("d-flex flex-column justify-content-around h-25 w-25");
+            console.log(timeNow);
 
             //Time
-            // var allTime = $("<h6>").text(timeNow); Fix this code
+            var allTime = $("<h6>").text(timeNow);
             fiveFore.append(allTime);
 
             // Temp
@@ -148,8 +150,6 @@ $(document).on("click", ".city-btn", function (event) {
 });
 
 renderButtons();
-
-
 
 
 // Step 3: Create two rows within col-md-8 div. One will have blank space where current weather information will go (look at image for details). 
